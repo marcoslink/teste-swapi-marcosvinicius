@@ -39,28 +39,47 @@ test('Deve receber uma mensagem de erro, quando buscar por uma pessoa inexistent
     expect(1+1).toBe(resultadoEsperado);
 }); */
 
-/*
 
-it1('',async() =>{ 
 
+it('',async() =>{ 
+  // https://swapi.dev/api
+    // starships/10
+
+    const resposta = await request('https://swapi.dev/api').get('/starships/10/');
+    
+
+    //console.log(resposta.status);
+    //console.log(resposta.body);
+    //console.log(`Status: ${resposta.status}`);
 });
 
 
-test1('Deve visualizar informações de cadastro, quando buscar uma pessoa existente',async()=>{ 
+test('Deve visualizar informações de cadastro, quando buscar uma nave existente',async()=>{ 
 
+    const resposta = await request('https://swapi.dev/api').get('/starships/10/');
+    expect(resposta.status).toBe(200);
+    expect(resposta.body.films).toBeDefined();
+    expect(Number(resposta.body.cost_in_credits)).toBeGreaterThan(0);
+    expect(resposta.body.name).toBe('Millennium Falcon');
 });
 
 
-test1('Deve receber uma mensagem de erro, quando buscar por uma pessoa inexistente', async()=>{ 
+test('Deve receber uma mensagem de erro, quando buscar por uma nave inexistente', async()=>{ 
 
 
+    const resposta = await request('https://swapi.dev/api').get('/starships/9999/');
 
+    expect(resposta.status).toBe(404);
+    expect(resposta.body.detail).toBe('Not found');
+    expect(resposta.body).toMatchObject({
+        detail: 'Not found'
+    });
 
     });
 
 
 
-    
+    /*
 
 it2('', async() => {
 
