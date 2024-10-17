@@ -79,19 +79,40 @@ test('Deve receber uma mensagem de erro, quando buscar por uma nave inexistente'
 
 
 
-    /*
+    
 
-it2('', async() => {
+it('', async() => {
+ // https://swapi.dev/api
+    // /people/3/
 
+    const resposta = await request('https://swapi.dev/api').get('/people/3');
+
+
+    //console.log(resposta.status);
+    //console.log(resposta.body);
+    //console.log(`Status: ${resposta.status}`);
 });
 
-test2('Deve visualizar informações de cadastro, quando buscar uma pessoa existente', async() => {
-
+test('Deve visualizar informações de cadastro, quando buscar uma pessoa existente', async() => {
+    const resposta = await request('https://swapi.dev/api').get('/people/3');
+    expect(resposta.status).toBe(200);
+    expect(resposta.body.films).toBeDefined();
+    expect(Number(resposta.body.mass)).toBeGreaterThan(0);
+    expect(resposta.body.name).toBe('R2-D2');
 });
 
-test2('Deve receber uma mensagem de erro, quando buscar por uma pessoa inexistente', async() => {
+test('Deve receber uma mensagem de erro, quando buscar por uma pessoa inexistente', async() => {
+    const resposta = await request('https://swapi.dev/api').get('/people/9999');
 
+    expect(resposta.status).toBe(404);
+    expect(resposta.body.detail).toBe('Not found');
+    expect(resposta.body).toMatchObject({
+        detail: 'Not found'
+    });
+       
 });
+
+/*
 
 it3('', async() => {
 
