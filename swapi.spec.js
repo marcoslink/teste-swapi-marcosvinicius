@@ -112,20 +112,35 @@ test('Deve receber uma mensagem de erro, quando buscar por uma pessoa inexistent
        
 });
 
+
+
+it('', async() => {
+
+
+const resposta = await request('https://swapi.dev/api').get('/planets/8/');
+});
+
+test('Deve visualizar informações de cadastro, quando buscar um planeta existente', async() => {
+    const resposta = await request('https://swapi.dev/api').get('/planets/8/');
+    expect(resposta.status).toBe(200);
+    expect(resposta.body.films).toBeDefined();
+    expect(Number(resposta.body.population)).toBeGreaterThan(0);
+    expect(resposta.body.name).toBe('Naboo');
+
+});
+
+test('Deve receber uma mensagem de erro, quando buscar por uma pessoa inexistente', async() => {
+    const resposta = await request('https://swapi.dev/api').get('/planets/9999/');
+
+    expect(resposta.status).toBe(404);
+    expect(resposta.body.detail).toBe('Not found');
+    expect(resposta.body).toMatchObject({
+        detail: 'Not found'
+    });
+});
+
+
 /*
-
-it3('', async() => {
-
-});
-
-test3('Deve visualizar informações de cadastro, quando buscar uma pessoa existente', async() => {
-
-});
-
-test3('Deve receber uma mensagem de erro, quando buscar por uma pessoa inexistente', async() => {
-
-});
-
 it4('', async() => {
 
 });
