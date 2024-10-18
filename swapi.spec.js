@@ -167,19 +167,34 @@ test('Deve receber uma mensagem de erro, quando buscar por um veiculo inexistent
 });
 
 
+
+it('', async() => {
+    //films/3/
+    const resposta = await request('https://swapi.dev/api').get('/films/3/');
+});
+
+test('Deve visualizar informações de cadastro, quando buscar um filme existente', async() => {
+    const resposta = await request('https://swapi.dev/api').get('/films/3/');
+    expect(resposta.status).toBe(200);
+    expect(resposta.body.characters).toBeDefined();
+    expect(resposta.body.planets).toBeDefined();
+    expect(resposta.body.starships).toBeDefined();
+    expect(resposta.body.vehicles).toBeDefined();
+    expect(resposta.body.species).toBeDefined();
+
+    expect(resposta.body.title).toBe('Return of the Jedi');
+});
+
+test('Deve receber uma mensagem de erro, quando buscar por um filme inexistente', async() => {
+    const resposta = await request('https://swapi.dev/api').get('/films/9999/');
+
+    expect(resposta.status).toBe(404);
+    expect(resposta.body.detail).toBe('Not found');
+    expect(resposta.body).toMatchObject({
+        detail: 'Not found'
+    });
+});
 /*
-it5('', async() => {
-
-});
-
-test5('Deve visualizar informações de cadastro, quando buscar uma pessoa existente', async() => {
-
-});
-
-test5('Deve receber uma mensagem de erro, quando buscar por uma pessoa inexistente', async() => {
-
-});
-
 it6('', async() => {
 
 });
@@ -228,15 +243,5 @@ test9('Deve receber uma mensagem de erro, quando buscar por uma pessoa inexisten
 
 });
 
-it10('', async() => {
 
-});
-
-test10('Deve visualizar informações de cadastro, quando buscar uma pessoa existente', async() => {
-
-});
-
-test10('Deve receber uma mensagem de erro, quando buscar por uma pessoa inexistente', async() => {
-
-});
  */
