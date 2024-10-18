@@ -140,19 +140,34 @@ test('Deve receber uma mensagem de erro, quando buscar por uma pessoa inexistent
 });
 
 
+
+it('', async() => {
+    const resposta = await request('https://swapi.dev/api').get('/vehicles/30/');
+});
+
+test('Deve visualizar informações de cadastro, quando buscar um veiculo existente', async() => {
+    const resposta = await request('https://swapi.dev/api').get('/vehicles/30/');
+    expect(resposta.status).toBe(200);
+    expect(resposta.body.pilots).toBeDefined();
+    expect(resposta.body.films).toBeDefined();
+    expect(Number(resposta.body.cost_in_credits)).toBeGreaterThan(0);
+    expect(resposta.body.name).toBe('Imperial Speeder Bike');
+
+
+});
+
+test('Deve receber uma mensagem de erro, quando buscar por um veiculo inexistente', async() => {
+    const resposta = await request('https://swapi.dev/api').get('/vehicles/9999/');
+
+    expect(resposta.status).toBe(404);
+    expect(resposta.body.detail).toBe('Not found');
+    expect(resposta.body).toMatchObject({
+        detail: 'Not found'
+    });
+});
+
+
 /*
-it4('', async() => {
-
-});
-
-test4('Deve visualizar informações de cadastro, quando buscar uma pessoa existente', async() => {
-
-});
-
-test4('Deve receber uma mensagem de erro, quando buscar por uma pessoa inexistente', async() => {
-
-});
-
 it5('', async() => {
 
 });
