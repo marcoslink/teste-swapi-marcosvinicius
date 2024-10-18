@@ -211,8 +211,8 @@ test('Deve visualizar informações de cadastro, quando buscar uma pessoa existe
     expect(resposta.body.name).toBe('Darth Vader');
 });
 
-test('Deve receber uma mensagem de erro, quando buscar por uma pessoa inexistente', async() => {
-    const resposta = await request('https://swapi.dev/api').get('/films/9999/');
+test('Deve receber uma mensagem de erro, quando buscar por uma nave inexistente', async() => {
+    const resposta = await request('https://swapi.dev/api').get('/people/9999/');
 
     expect(resposta.status).toBe(404);
     expect(resposta.body.detail).toBe('Not found');
@@ -220,19 +220,33 @@ test('Deve receber uma mensagem de erro, quando buscar por uma pessoa inexistent
         detail: 'Not found'
     });
 });
- /*
-it7('', async() => {
+ 
 
+it('', async() => {
+    const resposta = await request('https://swapi.dev/api').get('/starships/3/');
 });
 
-test7('Deve visualizar informações de cadastro, quando buscar uma pessoa existente', async() => {
+test('Deve visualizar informações de cadastro, quando buscar uma nave existente', async() => {
+    const resposta = await request('https://swapi.dev/api').get('/starships/3/');
+    expect(resposta.status).toBe(200);
+    expect(resposta.body.pilots).toBeDefined();
+    expect(resposta.body.films).toBeDefined();
+    expect(Number(resposta.body.cost_in_credits)).toBeGreaterThan(0);
+    expect(Number(resposta.body.max_atmosphering_speed)).toBeGreaterThan(0);
 
+    expect(resposta.body.name).toBe('Star Destroyer');
 });
 
-test7('Deve receber uma mensagem de erro, quando buscar por uma pessoa inexistente', async() => {
+test('Deve receber uma mensagem de erro, quando buscar por uma nave inexistente', async() => {
+    const resposta = await request('https://swapi.dev/api').get('/starships/9999/');
 
+    expect(resposta.status).toBe(404);
+    expect(resposta.body.detail).toBe('Not found');
+    expect(resposta.body).toMatchObject({
+        detail: 'Not found'
+    });
 });
-
+/*
 it8('', async() => {
 
 });
