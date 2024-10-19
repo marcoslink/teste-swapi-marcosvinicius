@@ -129,7 +129,7 @@ test('Deve visualizar informações de cadastro, quando buscar um planeta existe
 
 });
 
-test('Deve receber uma mensagem de erro, quando buscar por uma pessoa inexistente', async() => {
+test('Deve receber uma mensagem de erro, quando buscar por um planeta inexistente', async() => {
     const resposta = await request('https://swapi.dev/api').get('/planets/9999/');
 
     expect(resposta.status).toBe(404);
@@ -211,7 +211,7 @@ test('Deve visualizar informações de cadastro, quando buscar uma pessoa existe
     expect(resposta.body.name).toBe('Darth Vader');
 });
 
-test('Deve receber uma mensagem de erro, quando buscar por uma nave inexistente', async() => {
+test('Deve receber uma mensagem de erro, quando buscar por uma pessoa inexistente', async() => {
     const resposta = await request('https://swapi.dev/api').get('/people/9999/');
 
     expect(resposta.status).toBe(404);
@@ -246,19 +246,32 @@ test('Deve receber uma mensagem de erro, quando buscar por uma nave inexistente'
         detail: 'Not found'
     });
 });
+
+it('', async() => {
+    //planets/1/
+    const resposta = await request('https://swapi.dev/api').get('/planets/1/');
+});
+
+test('Deve visualizar informações de cadastro, quando buscar um planeta existente', async() => {
+    const resposta = await request('https://swapi.dev/api').get('/planets/1/');
+    expect(resposta.status).toBe(200);
+    expect(resposta.body.residents).toBeDefined();
+    expect(resposta.body.films).toBeDefined();
+    expect(Number(resposta.body.rotation_period)).toBeGreaterThan(0);
+    expect(Number(resposta.body.orbital_period)).toBeGreaterThan(0);
+
+    expect(resposta.body.name).toBe('Tatooine');
+});
+
+test('Deve receber uma mensagem de erro, quando buscar por um planeta inexistente', async() => {
+    const resposta = await request('https://swapi.dev/api').get('/planets/9999/');
+    expect(resposta.status).toBe(404);
+    expect(resposta.body.detail).toBe('Not found');
+    expect(resposta.body).toMatchObject({
+        detail: 'Not found'
+    });
+});
 /*
-it8('', async() => {
-
-});
-
-test8('Deve visualizar informações de cadastro, quando buscar uma pessoa existente', async() => {
-
-});
-
-test8('Deve receber uma mensagem de erro, quando buscar por uma pessoa inexistente', async() => {
-
-});
-
 it9('', async() => {
 
 });
