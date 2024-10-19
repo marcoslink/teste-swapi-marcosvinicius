@@ -271,18 +271,31 @@ test('Deve receber uma mensagem de erro, quando buscar por um planeta inexistent
         detail: 'Not found'
     });
 });
-/*
-it9('', async() => {
 
+it('', async() => {
+//starships/49/
+    const resposta = await request('https://swapi.dev/api').get('/starships/49/');
 });
 
-test9('Deve visualizar informações de cadastro, quando buscar uma pessoa existente', async() => {
+test('Deve visualizar informações de cadastro, quando buscar uma nave existente', async() => {
+    const resposta = await request('https://swapi.dev/api').get('/starships/49/');
+    expect(resposta.status).toBe(200);
+    expect(resposta.body.pilots).toBeDefined();
+    expect(resposta.body.films).toBeDefined();
+    expect(Number(resposta.body.length)).toBeGreaterThan(0);
+    expect(Number(resposta.body.crew)).toBeGreaterThan(0);
 
+    expect(resposta.body.name).toBe('H-type Nubian yacht');
 });
 
-test9('Deve receber uma mensagem de erro, quando buscar por uma pessoa inexistente', async() => {
-
+test('Deve receber uma mensagem de erro, quando buscar por uma nave inexistente', async() => {
+    const resposta = await request('https://swapi.dev/api').get('/starships/9999/');
+    expect(resposta.status).toBe(404);
+    expect(resposta.body.detail).toBe('Not found');
+    expect(resposta.body).toMatchObject({
+        detail: 'Not found'
+    });
 });
 
 
- */
+ 
